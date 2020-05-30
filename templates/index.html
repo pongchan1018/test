@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC" rel="stylesheet">
+    <link rel="Shortcut Icon" type="image/x-icon" href="./../static/favicon.ico" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>Chatbot專案測試</title>
+  </head>
+
+  <body>
+  
+    <div class="header"> 
+      <nav>
+        <img src="./../static/LOGO.png" alt="Site logo" style="width:420px; margin-left:20px; margin-top:10px;">                  
+      </nav>
+    </div>
+
+    <div style= "margin:1em 0px 2em;">
+    <h1>本專案是基於Flask框架的ChatterBot實作</h1>
+    <img src="./../static/bg.png" style="width: 100%;position: absolute; z-index: -1;">
+    <div>
+      <div id="chatbox">
+        <p class="botText"><span>哈囉～很高興見到你，現在心情如何？</span></p>
+      </div>
+      <div id="userInput">
+        <input id="textInput" type="text" name="msg" placeholder="留言......">
+        <input id="buttonInput" type="submit" value="送出">
+      </div>
+      <script>
+        function getBotResponse() { /* 定義函式 */
+          var rawText = $("#textInput").val();  /* 變數宣告 打字區 */
+          var userHtml = '<p class="userText"><span> &#128512; ' + rawText + '</span></p>';/* 將user的回應包進一串p裡面 */
+          $("#textInput").val("");
+          $("#chatbox").append(userHtml); /* 將這串包完的p加入chatbox當中 */
+          document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+          $.get("/get", { msg: rawText }).done(function(data) {
+            var botHtml = '<p class="botText"><span>' + data + '</span></p>';/* 將chatbot的回應包進一串p裡面 */
+          $("#chatbox").append(botHtml);/* 將這串包完的p加入chatbox當中 */
+            document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+          });
+        }
+          $("#textInput").keypress(function(e) {
+              if(e.which == 13) {
+                  getBotResponse();
+              }
+          });
+          $("#buttonInput").click(function() {
+            getBotResponse();
+          })
+      </script>
+    </div>
+  </div>
+
+    
+
+
+  </body>
+  <div class=footer>
+  <p>Copyright © 2020 DDLAB. 保留一切權利。</p>
+  </div>
+</html>

@@ -48,7 +48,7 @@ nav {
 }
 
 #textInput {
-    width: 89%;
+    width: 80%;
     height: 30px;
     border: none;
     border-bottom: 3px solid #0F3756;
@@ -59,7 +59,7 @@ nav {
 #buttonInput {
     font-family: 'Noto Sans TC', sans-serif;
     padding: 5px 9px;
-    width: 10%;
+    width: 15%;
     height: 37px;
     text-align: center;
     text-decoration: none;

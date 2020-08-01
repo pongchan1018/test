@@ -14,11 +14,9 @@ app = Flask(__name__)
 CORS(app)
 
 bot = ChatBot("Chatterbot", storage_adapter="chatterbot.storage.SQLStorageAdapter")
-trainer = ChatterBotCorpusTrainer(bot)
-trainer.train("data/learning_corpus") #train the bot
+# trainer = ChatterBotCorpusTrainer(bot)
+# trainer.train("data/learning_corpus") #train the bot
 bot.read_only = True #if True, bot will NOT learning after training
-
-bot = ChatBot("Chatterbot", storage_adapter="chatterbot.storage.SQLStorageAdapter")
 
 sentment_table = pd.read_excel('VAD-Lexicon.xlsx')  # 匯入情緒辭典
 # sentment_table.drop(['Unnamed: 10','Unnamed: 11'],inplace=True,axis=1)
@@ -128,24 +126,56 @@ def get_bot_response():
                 countword2 += 1
         if countword != 0:
             print(Dscore/countword2)
-            score = (Vscore/countword,Dscore/countword1,Dscore/countword2)
+            print(tokens)
+            non_count = userText.count("沒有")+userText.count("不是")+userText.count("無")+userText.count("大可不必")+userText.count("犯不著")+userText.count("不可以")+userText.count("不可")+userText.count("不能")+userText.count("不再")+userText.count("不得")+userText.count("不行")+userText.count("不准")+userText.count("不許")+userText.count("不必")+userText.count("不用")+userText.count("不須")+userText.count("絕不")+userText.count("決不")+userText.count("犯不著")+userText.count("不可以")+userText.count("不可")+userText.count("不能")+userText.count("不再")+userText.count("不得")+userText.count("不行")+userText.count("不准")+userText.count("不許")+userText.count("不必")+userText.count("不用")+userText.count("不須")+userText.count("絕不")+userText.count("決不")+userText.count("並非")+userText.count("從不")+userText.count("從未")+userText.count("毫不")+userText.count("毫無")+userText.count("絕非")+userText.count("無法")
+            if (non_count % 2) == 1:
+                print("否定詞有",non_count,"個，是奇數，該句為否定句")
+                valence_score = 1-(Vscore/countword)
+                arousal_score = 1-(Ascore/countword1)
+                dominance_score = 1-(Dscore/countword2)
+                Gscore = (valence_score,arousal_score,dominance_score)
+                print("該句為否定句，VAD數值為：",Gscore)
 
-            if  0 <= Vscore/countword <= 0.2 and 0.65 <= Ascore/countword1 <= 0.85 and 0 <= Dscore/countword2 <= 0.45:  
-                emotion = 'fear'
-            elif  0.05 <= Vscore/countword <= 0.25 and 0.7 <= Ascore/countword1 <= 0.9 and 0.55 <= Dscore/countword2 <= 1:  
-                emotion = 'angry'
-            elif  0.2 <= Vscore/countword <= 0.4 and 0.65 <= Ascore/countword1 <= 0.85 and 0 <= Dscore/countword2 <= 0.45:  
-                emotion = 'disgust'
-            elif  0.5 <= Vscore/countword <= 0.35 and 0.5 <= Ascore/countword1 <= 0.35 and 0 <= Dscore/countword2 <= 0.4:  
-                emotion = 'sad'
-            elif  0.7 <= Vscore/countword <= 1 and 0.5 <= Ascore/countword1 <= 0.75 and 0.5 <= Dscore/countword2 <= 0.85:  
-                emotion = 'happy'
-            elif  0.6 <= Vscore/countword <= 0.9 and 0.75 <= Ascore/countword1 <= 1 and 0.45 <= Dscore/countword2 <= 0.65:  
-                emotion = 'surprise'
+                Gscore = (valence_score,arousal_score,dominance_score)
+                if  0 <= valence_score <= 0.3 and 0.62 <= arousal_score <= 0.92 and 0.19 <= dominance_score <= 0.49:  
+                    emotion = 'fear'
+                elif  0.04 <= valence_score <= 0.34 and 0.6 <= arousal_score <= 0.9 and 0.37 <= dominance_score <= 0.67:  
+                    emotion = 'angry'
+                elif  0 <= valence_score <= 0.3 and 0.28 <= arousal_score <= 0.58 and 0.187 <= dominance_score <= 0.487:  
+                    emotion = 'disgust'
+                elif  0 <= valence_score <= 0.3 and 0.4 <= arousal_score <= 0.7 and 0.1 <= dominance_score <= 0.4:  
+                    emotion = 'sad'
+                elif  0.7 <= valence_score <= 1 and 0.59 <= arousal_score <= 0.89 and 0.57 <= dominance_score <= 0.87:  
+                    emotion = 'happy'
+                elif  0.67 <= valence_score <= 0.97 and 0.67 <= arousal_score <= 0.97 and 0.47 <= dominance_score <= 0.77:  
+                    emotion = 'surprise'
+                else:
+                    emotion = 'neutral'
+                print("該否定句的情緒判斷為：",emotion)
+
             else:
-                emotion = 'neutral'
-            print("該句的三維VAD數值分別為：",score)
-            print("該句情緒判斷為：",emotion)
+                print("否定詞有",non_count,"個，是偶數，故該句為肯定句或雙重否定")
+                valence_score = Vscore/countword
+                arousal_score = Ascore/countword1
+                dominance_score = Dscore/countword2
+                score = (valence_score,arousal_score,dominance_score)
+                print("該句為肯定句，VAD數值為：",score)
+                score = (valence_score,arousal_score,dominance_score)
+                if  0 <= valence_score <= 0.3 and 0.62 <= arousal_score <= 0.92 and 0.19 <= dominance_score <= 0.49:  
+                    emotion = 'fear'
+                elif  0.04 <= valence_score <= 0.34 and 0.6 <= arousal_score <= 0.9 and 0.37 <= dominance_score <= 0.67:  
+                    emotion = 'angry'
+                elif  0 <= valence_score <= 0.3 and 0.28 <= arousal_score <= 0.58 and 0.187 <= dominance_score <= 0.487:  
+                    emotion = 'disgust'
+                elif  0 <= valence_score <= 0.3 and 0.4 <= arousal_score <= 0.7 and 0.1 <= dominance_score <= 0.4:  
+                    emotion = 'sad'
+                elif  0.7 <= valence_score <= 1 and 0.59 <= arousal_score <= 0.89 and 0.57 <= dominance_score <= 0.87:  
+                    emotion = 'happy'
+                elif  0.67 <= valence_score <= 0.97 and 0.67 <= arousal_score <= 0.97 and 0.47 <= dominance_score <= 0.77:  
+                    emotion = 'surprise'
+                else:
+                    emotion = 'neutral'
+                print("該肯定句的情緒判斷為：",emotion)
         else:
             return 0
     

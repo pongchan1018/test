@@ -117,28 +117,62 @@ def get_sentment(sent):
     if countword != 0:
         print('Dominance的平均分數為:',Dscore/countword2)
         print('___________________________')
-        score = (Vscore/countword,Ascore/countword1,Dscore/countword2)
+        print(tokens)
+        # num = sent.count("沒有"),sent.count("不是"),sent.count("無"),sent.count("大可不必"),sent.count("犯不著"),sent.count("不可以"),sent.count("不可"),sent.count("不能"),sent.count("不再"),sent.count("不得"),sent.count("不行"),sent.count("不准"),sent.count("不許"),sent.count("不必"),sent.count("不用"),sent.count("不須"),sent.count("絕不"),sent.count("決不"),sent.count("犯不著"),sent.count("不可以"),sent.count("不可"),sent.count("不能"),sent.count("不再"),sent.count("不得"),sent.count("不行"),sent.count("不准"),sent.count("不許"),sent.count("不必"),sent.count("不用"),sent.count("不須"),sent.count("絕不"),sent.count("決不"),sent.count("並非"),sent.count("從不"),sent.count("從未"),sent.count("毫不"),sent.count("毫無"),sent.count("絕非"),sent.count("無法")
+        # print (num)
+        non_count = sent.count("沒有")+sent.count("不是")+sent.count("無")+sent.count("大可不必")+sent.count("犯不著")+sent.count("不可以")+sent.count("不可")+sent.count("不能")+sent.count("不再")+sent.count("不得")+sent.count("不行")+sent.count("不准")+sent.count("不許")+sent.count("不必")+sent.count("不用")+sent.count("不須")+sent.count("絕不")+sent.count("決不")+sent.count("犯不著")+sent.count("不可以")+sent.count("不可")+sent.count("不能")+sent.count("不再")+sent.count("不得")+sent.count("不行")+sent.count("不准")+sent.count("不許")+sent.count("不必")+sent.count("不用")+sent.count("不須")+sent.count("絕不")+sent.count("決不")+sent.count("並非")+sent.count("從不")+sent.count("從未")+sent.count("毫不")+sent.count("毫無")+sent.count("絕非")+sent.count("無法")
+        # print (non_count)
+        if (non_count % 2) == 1:
+            print("否定詞有",non_count,"個，是奇數，該句為否定句")
+            valence_score = 1-(Vscore/countword)
+            arousal_score = 1-(Ascore/countword1)
+            dominance_score = 1-(Dscore/countword2)
+            Gscore = (valence_score,arousal_score,dominance_score)
+            print("該句為否定句，VAD數值為：",Gscore)
 
-        if  0 <= Vscore/countword <= 0.2 and 0.65 <= Ascore/countword1 <= 0.85 and 0 <= Dscore/countword2 <= 0.45:  
-            emotion = 'fear'
-        elif  0.05 <= Vscore/countword <= 0.25 and 0.7 <= Ascore/countword1 <= 0.9 and 0.55 <= Dscore/countword2 <= 1:  
-            emotion = 'angry'
-        elif  0.2 <= Vscore/countword <= 0.4 and 0.65 <= Ascore/countword1 <= 0.85 and 0 <= Dscore/countword2 <= 0.45:  
-            emotion = 'disgust'
-        elif  0.5 <= Vscore/countword <= 0.35 and 0.5 <= Ascore/countword1 <= 0.35 and 0 <= Dscore/countword2 <= 0.4:  
-            emotion = 'sad'
-        elif  0.7 <= Vscore/countword <= 1 and 0.5 <= Ascore/countword1 <= 0.75 and 0.5 <= Dscore/countword2 <= 0.85:  
-            emotion = 'happy'
-        elif  0.6 <= Vscore/countword <= 0.9 and 0.75 <= Ascore/countword1 <= 1 and 0.45 <= Dscore/countword2 <= 0.65:  
-            emotion = 'surprise'
+            Gscore = (valence_score,arousal_score,dominance_score)
+            if  0 <= valence_score <= 0.3 and 0.62 <= arousal_score <= 0.92 and 0.19 <= dominance_score <= 0.49:  
+                emotion = 'fear'
+            elif  0.04 <= valence_score <= 0.34 and 0.6 <= arousal_score <= 0.9 and 0.37 <= dominance_score <= 0.67:  
+                emotion = 'angry'
+            elif  0 <= valence_score <= 0.3 and 0.28 <= arousal_score <= 0.58 and 0.187 <= dominance_score <= 0.487:  
+                emotion = 'disgust'
+            elif  0 <= valence_score <= 0.3 and 0.4 <= arousal_score <= 0.7 and 0.1 <= dominance_score <= 0.4:  
+                emotion = 'sad'
+            elif  0.7 <= valence_score <= 1 and 0.59 <= arousal_score <= 0.89 and 0.57 <= dominance_score <= 0.87:  
+                emotion = 'happy'
+            elif  0.67 <= valence_score <= 0.97 and 0.67 <= arousal_score <= 0.97 and 0.47 <= dominance_score <= 0.77:  
+                emotion = 'surprise'
+            else:
+                emotion = 'neutral'
+            print("該句情緒判斷為：",emotion)
+
         else:
-            emotion = 'neutral'
-
-        print("該句的VAD數值分別為：",score)
-        print("該句情緒判斷為：",emotion)
+            print("否定詞有",non_count,"個，是偶數，故該句為肯定句或雙重否定")
+            valence_score = Vscore/countword
+            arousal_score = Ascore/countword1
+            dominance_score = Dscore/countword2
+            score = (valence_score,arousal_score,dominance_score)
+            print("該句為直述句，VAD數值為：",score)
+            score = (valence_score,arousal_score,dominance_score)
+            if  0 <= valence_score <= 0.3 and 0.62 <= arousal_score <= 0.92 and 0.19 <= dominance_score <= 0.49:  
+                emotion = 'fear'
+            elif  0.04 <= valence_score <= 0.34 and 0.6 <= arousal_score <= 0.9 and 0.37 <= dominance_score <= 0.67:  
+                emotion = 'angry'
+            elif  0 <= valence_score <= 0.3 and 0.28 <= arousal_score <= 0.58 and 0.187 <= dominance_score <= 0.487:  
+                emotion = 'disgust'
+            elif  0 <= valence_score <= 0.3 and 0.4 <= arousal_score <= 0.7 and 0.1 <= dominance_score <= 0.4:  
+                emotion = 'sad'
+            elif  0.7 <= valence_score <= 1 and 0.59 <= arousal_score <= 0.89 and 0.57 <= dominance_score <= 0.87:  
+                emotion = 'happy'
+            elif  0.67 <= valence_score <= 0.97 and 0.67 <= arousal_score <= 0.97 and 0.47 <= dominance_score <= 0.77:  
+                emotion = 'surprise'
+            else:
+                emotion = 'neutral'
+            print("該句情緒判斷為：",emotion)
     else:
         return 0
     
-sent ="美味的蛋糕吃起來讓我感到很幸福"
+sent ="我是開心"
 get_sentment(sent)
 

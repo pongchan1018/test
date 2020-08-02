@@ -161,7 +161,7 @@ def get_bot_response():
                 score = (valence_score,arousal_score,dominance_score)
                 print("該句為肯定句，VAD數值為：",score)
                 score = (valence_score,arousal_score,dominance_score)
-                if  0 <= valence_score <= 0.3 and 0.62 <= arousal_score <= 0.92 and 0.19 <= dominance_score <= 0.49:  
+                if  0 <= valence_score <= 0.3 and 0.62 <= arousal_score <ㄔㄛ= 0.92 and 0.19 <= dominance_score <= 0.49:  
                     emotion = 'fear'
                 elif  0.04 <= valence_score <= 0.34 and 0.6 <= arousal_score <= 0.9 and 0.37 <= dominance_score <= 0.67:  
                     emotion = 'angry'

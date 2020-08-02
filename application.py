@@ -9,6 +9,8 @@ import jieba
 import jieba.analyse
 import jieba.posseg as pseg
 import re
+from flask_sqlalchemy import SQLAlchemy
+
 
 app = Flask(__name__)
 CORS(app)
@@ -17,6 +19,20 @@ bot = ChatBot("Chatterbot", storage_adapter="chatterbot.storage.SQLStorageAdapte
 # trainer = ChatterBotCorpusTrainer(bot)
 # trainer.train("data/learning_corpus") #train the bot
 bot.read_only = True #if True, bot will NOT learning after training
+
+db = SQLAlchemy()
+
+POSTGRES = {
+    'user': 'kdopzajlwqjyoc',
+    'password': '72ec00eb4d3374b5857f0a23bc5d8547795ccd1ab48848d00112973bb3fe2e4b',
+    'db': 'df6ipclmd9tuph',
+    'host': 'ec2-50-16-198-4.compute-1.amazonaws.com',
+    'port': '5432',
+}
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://kdopzajlwqjyoc:72ec00eb4d3374b5857f0a23bc5d8547795ccd1ab48848d00112973bb3fe2e4b@ec2-50-16-198-4.compute-1.amazonaws.com:5432/df6ipclmd9tuph' % POSTGRES
+
+db.init_app(app)
 
 sentment_table = pd.read_excel('VAD-Lexicon.xlsx')  # 匯入情緒辭典
 # sentment_table.drop(['Unnamed: 10','Unnamed: 11'],inplace=True,axis=1)
@@ -161,7 +177,7 @@ def get_bot_response():
                 score = (valence_score,arousal_score,dominance_score)
                 print("該句為肯定句，VAD數值為：",score)
                 score = (valence_score,arousal_score,dominance_score)
-                if  0 <= valence_score <= 0.3 and 0.62 <= arousal_score <ㄔㄛ= 0.92 and 0.19 <= dominance_score <= 0.49:  
+                if  0 <= valence_score <= 0.3 and 0.62 <= arousal_score <= 0.92 and 0.19 <= dominance_score <= 0.49:  
                     emotion = 'fear'
                 elif  0.04 <= valence_score <= 0.34 and 0.6 <= arousal_score <= 0.9 and 0.37 <= dominance_score <= 0.67:  
                     emotion = 'angry'

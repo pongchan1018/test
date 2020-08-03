@@ -44,13 +44,13 @@ bot = ChatBot(
     filters=[
         'chatterbot.filters.RepetitiveResponseFilter'
     ],
-    database_uri = "postgres://kdopzajlwqjyoc:72ec00eb4d3374b5857f0a23bc5d8547795ccd1ab48848d00112973bb3fe2e4b@ec2-50-16-198-4.compute-1.amazonaws.com:5432/df6ipclmd9tuph",
-    #database_uri = "sqlite:///database_test.db",
+    # database_uri = "postgres://kdopzajlwqjyoc:72ec00eb4d3374b5857f0a23bc5d8547795ccd1ab48848d00112973bb3fe2e4b@ec2-50-16-198-4.compute-1.amazonaws.com:5432/df6ipclmd9tuph",
+    database_uri = "sqlite:///database_test.db",
     database = "db_chatterbot"
     )
 trainer = ChatterBotCorpusTrainer(bot)
 trainer.train("data/learning_corpus") #train the bot
-bot.read_only = True #if True, bot will NOT learning after training
+# bot.read_only = True #if True, bot will NOT learning after training
 
 sentment_table = pd.read_excel('VAD-Lexicon.xlsx')  # 匯入情緒辭典
 # sentment_table.drop(['Unnamed: 10','Unnamed: 11'],inplace=True,axis=1)

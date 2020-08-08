@@ -14,7 +14,7 @@ fastcache==  1.1.0
 filelock==3.0.12
 flake8==  3.7.9
 Flask-Cors== 3.0.8
-Flask-Script==  2.pip0.6
+Flask-Script==  2.0.6
 fsspec==  0.6.2
 future==  0.18.2
 gast== 0.3.2

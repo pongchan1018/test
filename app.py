@@ -48,8 +48,8 @@ bot = ChatBot(
     database_uri = "sqlite:///database_test.db",
     database = "db_chatterbot"
     )
-trainer = ChatterBotCorpusTrainer(bot)
-trainer.train("data/learning_corpus") #train the bot
+#trainer = ChatterBotCorpusTrainer(bot)
+#trainer.train("data/learning_corpus") #train the bot
 # bot.read_only = True #if True, bot will NOT learning after training
 
 sentment_table = pd.read_excel('VAD-Lexicon.xlsx')  # 匯入情緒辭典

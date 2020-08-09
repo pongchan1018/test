@@ -7,8 +7,8 @@ import re
 
 sentment_table = pd.read_excel('VAD-Lexicon.xlsx') 
 # sentment_table.drop(['Unnamed: 10','Unnamed: 11'],inplace=True,axis=1)
-pos_table = pd.read_excel('VAD-Lexicon.xls',sheet_name='sheetPOS')
-neg_table = pd.read_excel('VAD-Lexicon.xls',sheet_name='sheetNEG')
+pos_table = pd.read_excel('VAD-Lexicon.xlsx',sheet_name='sheetPOS')
+neg_table = pd.read_excel('VAD-Lexicon.xlsx',sheet_name='sheetNEG')
 
 pos_dict = dict(zip(list(pos_table.posword),list(pos_table.Vscore)))
 neg_dict = dict(zip(list(neg_table.negword),list(neg_table.Vscore)))

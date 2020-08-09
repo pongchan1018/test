@@ -47,8 +47,6 @@ distlib==0.3.0
 distributed==2.5.2
 dj-database-url==0.5.0
 dj-static==0.0.6
-Django==3.0.4
-django-heroku==0.3.1
 docutils==0.15.2
 entrypoints==0.3
 et-xmlfile==1.0.1
@@ -111,7 +109,7 @@ matplotlib==3.1.1
 mccabe==0.6.1
 mistune==0.8.4
 mkl-fft== 1.0.2
-mkl-random==1.1.0
+mkl-random== 1.0.1.1
 mkl-service==2.3.0
 mock==3.0.5
 more-itertools==7.2.0

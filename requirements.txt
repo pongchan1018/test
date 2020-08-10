@@ -59,9 +59,6 @@ future==0.17.1
 gast==0.3.2
 gevent==1.4.0
 glob2==0.7
-google-auth==1.11.0
-google-auth-oauthlib==0.4.1
-google-pasta==0.1.8
 greenlet==0.4.15
 grpcio==1.26.0
 gunicorn==20.0.4
@@ -86,15 +83,6 @@ joblib==0.16.0
 json5==0.8.5
 jsonify==0.5
 jsonschema==3.0.2
-jupyter==1.0.0
-jupyter-client==5.3.3
-jupyter-console==6.0.0
-jupyter-core==4.5.0
-jupyterlab==1.1.4
-jupyterlab-server==1.0.6
-Keras==2.3.1
-Keras-Applications==1.0.8
-Keras-Preprocessing==1.1.0
 keyring==18.0.0
 kiwisolver==1.1.0
 lazy-object-proxy==1.4.2
@@ -227,7 +215,6 @@ tblib==1.4.0
 termcolor==1.1.0
 terminado==0.8.2
 testpath==0.4.2
-tflearn==0.3.2
 thinc==7.0.8
 toolz==0.10.0
 tornado==6.0.3

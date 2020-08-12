@@ -138,7 +138,6 @@ pytest-remotedata==0.3.2
 python-dateutil==2.7.5
 pytz==2020.1
 PyWavelets==1.0.3
-pywinpty==0.5.5
 PyYAML==3.13
 pyzmq==18.1.0
 QtAwesome==0.6.0
